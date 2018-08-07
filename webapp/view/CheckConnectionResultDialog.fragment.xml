@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Result">
+		
+		<Text text="Connection Successful: {/ok}" />
+		<Text text="Error Message: {/errorMessage}" />
+		<Text text="Error Point: {/errorPoint}" />
+		<Text text="Suggestion: {/suggestion}" />
+		<beginButton>
+			<Button text="OK" press="onCheckConnectionResultDialogOK" />
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

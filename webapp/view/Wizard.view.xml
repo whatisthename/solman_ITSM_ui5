@@ -1,0 +1,104 @@
+<mvc:View controllerName="com.sap.smi.WeChatAppConfiguration.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout">
+	<!--	<App id="app">-->
+	<!--	<pages>-->
+	<Page title="{status>/appName}">
+		<content>
+			<Wizard finishButtonText="Finish And Close" complete="onComplete">
+				<WizardStep id="1" title="Prerequisites" validated="{status>/activated}" class="sapUiSmallMarginTopBottom">
+					<!--	<l:HorizontalLayout class="sapUiSmallMargin">-->
+					<l:VerticalLayout class="sapUiSmallMargin" width="45%">
+						<Title text="1.1. SAP Cloud Platform Account" class="sapUiSmallMarginBottom"/>
+						<Text class="sapUiSmallMarginBottom"
+							text="You need a customer account on SAP Cloud Platform, to purchase an account please contact Technical Quality Manager for your enterprise, or visit https://cloudplatform.sap.com/\n"/>
+						<Text class="sapUiSmallMarginBottom"
+							text="After getting an customer account, please send mail to sap_dbs_sst@sap.com to request subscribing SAP Solution Manager and WeChat Integrator."/>
+						<Text
+							text="After subscribing WeChat Integrator successfully, you are able to gain Activation Code from customer WeChat Integrator Administration tool. Please use the code to activate your integration: "/>
+						<!--<Panel>-->
+						<!--<l:HorizontalLayout class="sapUiSmallMargin">-->
+						<Input width="28em" class="sapUiSmallMarginEnd" id="activateCode" placeholder="Enter your activation code here "
+							visible="{= !${status>/activated}}"/>
+						<Button text="Activate" width="10em" class="sapUiSmallMarginBegin" press="onActivate" visible="{= !${status>/activated}}"/>
+						<Button text="DeActivate" width="10em" class="sapUiSmallMarginBegin" press="onDeactivate" visible="{status>/activated}"/>
+						<!--</Panel>-->
+						<!--</l:HorizontalLayout>-->
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiSmallMargin" width="45%">
+						<Title text="1.2. SAP Solution Manager On-Premise" class="sapUiSmallMarginBottom"/>
+						<!--<Text class="sapUiSmallMarginBottom"
+										text="Please download and install SAP Solution Manager add-on ST-XXX, it requires 7.1 SP15 or higher version of SAP Solution Manager. The add-on can be downloaded from SAP Software Download Center https://support.sap.com/software.html"/>-->
+						<Text class="sapUiSmallMarginBottom"
+							text="SAI has ABAP codes to be imported to your SAP Solution Manager system, you need to contact sap_dbs_sst@sap.com to get the codes"/>
+						<Title text="1.3. Install and Configure SAP Cloud Connector" class="sapUiSmallMarginBottom"/>
+						<Text class="sapUiSmallMarginBottom"
+							text="SAP Cloud Connector connects your on-premise landscape with your SCP account, you need to download, install and setup it, please refer to https://cloudplatform.sap.com/capabilities/integration/cloud-connector.html for guidance and help"/>
+						<Text class="sapUiSmallMarginBottom" text="Setup HTTPS connection between SCC and Gateway."/>
+					</l:VerticalLayout>
+					<!--	</l:HorizontalLayout>-->
+				</WizardStep>
+				<WizardStep id="2" title="On-Premise Configuration" validated="{status>/activated}" class="sapUiSmallMarginBottom">
+					<l:VerticalLayout>
+						<Title text="2.1. Connect SAP Solution Manager and your SAP Gateway" class="sapUiSmallMarginBottom"/>
+						<Text class="sapUiSmallMarginBottom"
+							text="We suggest customer to setup a SAP Gateway system on front of SAP Solution Manager system to expose OData services. In this landscape SAP Solution Manager takes the role of backend business system. The Gateway is not mandatory to be a new system, exist Gateway can be reused. The lowest support Gateway version: \nSAP_GWFND 740 SP16."/>
+						<Title text="2.2. Register OData Services on your SAP Gateway" class="sapUiSmallMarginBottom"/>
+						<Text class="sapUiSmallMarginBottom"
+							text="Following Odata Services on SAP Solution Manager should be exposed via your Gateway system, please add them to your Gateway:\n1) SAI_USER_MAPPING_SERV (OAuth2 service)\n2) SAI_MESSAGE_SRV (OAuth2 service)\n3) SAI_ALERT_SERV (OAuth2 service)"/>
+						<Text class="sapUiSmallMarginBottom"
+							text="In SAP Cloud Connector, expose following SAP Gateway system’s web services:\n/sap/bc/sec/oauth2/token\n/sap/opu/odata/IWFND\n/sap/opu/odata/sap/Z_SAI_ALERT_SERV\n/sap/opu/odata/sap/Z_SAI_MESSAGE_SRV\n/sap/opu/odata/sap/Z_SAI_RFC_SRV\n/sap/opu/odata/sap/Z_SAI_USER_MAPPING_SERV"/>
+						<Title text=" 2.3. Setup Trust Relationship Between WeChat Integrator and your SAP Gateway"/>
+						<Text class="sapUiSmallMarginBottom"
+							text="WeChat Integrator, which is deployed on cloud, should be able to exchange information with your Gateway system via OData services, you need to enable that by setup trust relationship between WeChat Integrator and your Gateway."/>
+						<Text class="sapUiSmallMarginBottom"
+							text="We need to get local SAML provider of your gateway system, they are necessary to communicate with your gateway from technical point of view."/>
+						<!--<l:HorizontalLayout>
+									<Label text="Gateway Server URL: " width="10em"/>
+									<Input width="30em"  placeholder="e.g. https://xxx.abc.com:59000/sap/bc/sec/oauth2/token"
+										visible="{= ${status>/activated}}" value="{status>/gatewayServer}"/>
+									<Button text="Save" class="sapUiSmallMarginBegin" press="onSaveGateWayServer" visible="{= ${status>/activated}}"/>
+								</l:HorizontalLayout>-->
+						<l:HorizontalLayout class="sapUiSmallMarginBottom">
+							<Label text="Local Provider Name: " width="10em"/>
+							<Input width="30em" placeholder="Name of your Gateway local SAML provider, run t-code SMAL2 to get it" visible="{= ${status>/activated}}"
+								value="{status>/localProviderName}"/>
+							<Button text="Save" class="sapUiSmallMarginBegin" press="onSaveSAMLLocalProviderName" visible="{= ${status>/activated}}"/>
+						</l:HorizontalLayout>
+						<Text class="sapUiSmallMarginBottom"
+							text="Please download trust certification file from customer WeChat Integrator Administration tool, then upload this file to your Gateway via t-code . To verify the connection please click button below."/>
+						<Button text="Check Configuration" press="onCheckConfiguration"/>
+					</l:VerticalLayout>
+				</WizardStep>
+				<WizardStep id="3" title="WeChat App Menu" validated="{status>/activated}" class="sapUiSmallMarginBottom">
+					<l:VerticalLayout>
+						<Text class="sapUiSmallMarginBottom"
+							text="This WeChat application contains a menu item. Click below button so that a URL can be automatically generated and linked with the menu."/>
+						<l:HorizontalLayout class="sapUiSmallMarginBottom">
+							<Button id="menuBtn" text="Generate URLs" enabled="{status>/enabled}" press="onSaveUIURL"/>
+							<List items="{menus>/}">
+								<InputListItem label="{menus>name}" class="sapUiSmallMarginBegin" >
+									<Input editable="false" width="30em" value="{menus>url}" align="sap.ui.core.TextAlign.Left"/>
+								</InputListItem>
+							</List>
+						</l:HorizontalLayout>
+					</l:VerticalLayout>
+				</WizardStep>
+				<WizardStep id="4" title="User Mapping" validated="{status>/activated}" class="sapUiSmallMarginBottom">
+					<List id="userMappingList" headerText="User Mapping" items="{userMapping>/}" mode="MultiSelect">
+						<items>
+							<InputListItem label="{userMapping>wechatUserId}">
+								<Input value="{ path: 'userMapping>solmanUserId', type: 'sap.ui.model.type.String', constraints : { minLength: 1, maxLength: 12 } }"
+									change="onChangeUserMapping" type="Text" valueStateText="Name must not be empty. Maximum l2 characters." maxLength="12" width="20em"
+									placeholder="Enter Solution Manager ID"/>
+							</InputListItem>
+						</items>
+					</List>
+					<Button text="Add" press="onAddUserMapping"/>
+					<Button text="Delete" press="onDeleteUserMapping"/>
+				</WizardStep>
+			</Wizard>
+		</content>
+	</Page>
+	<!--		</pages>-->
+	<!--	</App>-->
+</mvc:View>

@@ -1,0 +1,54 @@
+<mvc:View controllerName="com.sap.smi.WeChatAppConfiguration.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+					<Panel id="activateCodePanel" headerText="ACTIVATE">
+						<Label text="Input Activation Code"></Label>
+						<Input id="activateCode" value=""/>
+						<Button text="Activate" press="onActivate"/>
+					</Panel>
+					<Panel id="deactivateCodePanel" headerText="DEACTIVATE">
+						<Button text="De-Activate" press="onDeactivate"/>
+					</Panel>
+					<Panel id="inputUrlPanel" headerText="Set UI APPs Menu URL" height="400px">
+						<!--<Input description="Input URL for Notifiaction App" id="notifiactionUrl" value=""/>
+						<Input description="Input URL for Monitor App" id="monitorUrl" value=""/>-->
+						<TabContainer items="{apps>/}" id="urlInputContainer" itemClose="onItemClose" >
+							<items>
+								<TabContainerItem name="{apps>name}" >
+									<content>
+										<List headerText="Input URL" items="{apps>menus}">
+											<items>
+												<InputListItem label="{apps>name}">
+													<Input value="{apps>url}" align="sap.ui.core.TextAlign.Left" />
+												</InputListItem>
+											</items>
+										</List>
+									</content>
+								</TabContainerItem>
+							</items>
+						</TabContainer>
+						
+					</Panel>
+					<Button text="Save" press="onSaveUIURL"/>
+					<Panel id="checkConnectPanel" headerText="Diagnostic">
+						<Button text="Check Connection" press="onCheckConnection"/>
+					</Panel>
+					<Panel id="userMappingPanel" headerText="User Mapping">
+						<List id="userMappingList" headerText="User Mapping" items="{userMapping>/}" mode="MultiSelect">
+							<items>
+								<InputListItem label="{userMapping>wechatUserId}">
+									<Input value="{userMapping>solmanUserId}"/>
+								</InputListItem>
+							</items>
+						</List>
+						<Button text="Add" press="onAddUserMapping" />
+						<Button text="Delete" press="onDeleteUserMapping" />
+					</Panel>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,139 @@
+{
+	"_version": "1.5.0",
+	"sap.app": {
+		"id": "com.sap.smi.WeChatAppConfiguration",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "com.sap.smi.WeChatAppConfiguration.view.App",
+			"type": "XML",
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.f": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.sap.smi.WeChatAppConfiguration.i18n.i18n"
+				}
+			},
+			"userMapping": {
+				"type": "sap.ui.model.json.JSONModel"
+			},
+			"apps": {
+				"type": "sap.ui.model.json.JSONModel"
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "com.sap.smi.WeChatAppConfiguration.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"bypassed": {
+					"target": "error"
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "Main",
+					"target": "Main"
+				},
+				{
+					"pattern": "error",
+					"name": "error",
+					"target": "error"
+				},
+				{
+					"pattern": "NotAvailable",
+					"name": "notAvailable",
+					"target": "notAvailable"
+				}
+			],
+			"targets": {
+				"blank": {
+					"viewName": "App",
+					"viewId": "App",
+					"viewLevel": 1,
+					"transition": "show"
+				},
+				"Main": {
+					"viewName": "Wizard",
+					"viewId": "Wizard",
+					"viewLevel": 1
+				},
+				"error": {
+					"viewName": "Error",
+					"viewId": "Error",
+					"viewLevel": 1
+				},
+				"notAvailable": {
+					"viewName": "NotAvailable",
+					"viewId": "notAvailable",
+					"viewLevel": 1
+				}
+			}
+		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
+	}
+}

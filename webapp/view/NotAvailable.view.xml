@@ -1,0 +1,17 @@
+<mvc:View
+	controllerName="com.sap.smi.WeChatAppConfiguration.controller.NotAvailable"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+
+	<MessagePage
+		title="{i18n>notAvailableTitle}"
+		text="{i18n>notAvailableText}"
+		icon="{sap-icon://document}"
+		id="page"
+		description="{i18n>notAvailableSuggestion}">
+		<!--<customDescription>
+			<Link id="link" text="{i18n>notFoundSuggestion}" press="onLinkPressed" />
+		</customDescription>-->
+	</MessagePage>
+
+</mvc:View>

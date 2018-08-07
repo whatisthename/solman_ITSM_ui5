@@ -1,0 +1,17 @@
+<mvc:View
+	controllerName="com.sap.smi.WeChatAppConfiguration.controller.NotFound"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+
+	<MessagePage
+		title="{errorInfo>/errorInfo/errorMessage}"
+		text="{errorInfo>/errorInfo/errorMessage}"
+		icon="{sap-icon://document}"
+		id="page"
+		description="{errorInfo>/errorInfo/suggestionMessage}">
+		<!--<customDescription>
+			<Link id="link" text="{i18n>notFoundSuggestion}" press="onLinkPressed" />
+		</customDescription>-->
+	</MessagePage>
+
+</mvc:View>
