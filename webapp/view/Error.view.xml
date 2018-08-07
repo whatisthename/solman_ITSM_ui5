@@ -2,7 +2,7 @@
 	controllerName="com.sap.smi.WeChatAppConfiguration.controller.Error"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m">
-
+	<!--<Text>hehfdsjk;flasjklfjdklfjkljsla</Text>-->
 	<MessagePage
 		title="{errorInfo>/errorMessage}"
 		text="{errorInfo>/errorMessage}"
